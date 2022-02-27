@@ -1,24 +1,38 @@
-# README
+# usersテーブル
+|Colum             |  Type|                  Options|
+|------------------|------|-------------------------|
+|nickname          |string|null:false , unique: true|
+|email             |string|null:false               |
+|password          |string|null:false               |
+|first_name        |string|null:false               |
+|second_name       |string|null:false               |
+|first_name_kana   |string|null:false               |
+|second_name_kana  |string|null:false               |
+|birthday          |string|null:false               |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- has_many :items
+- belongs_to :order
 
-Things you may want to cover:
+# itemsテーブル
+|Colum             |      Type|                       Options|
+|------------------|----------|------------------------------|
+|name              |string    |null:false                    |
+|description       |text      |null:false                    |
+|price             |integer   |null:false                    |
+|user              |references|null:false , foreign_key: true|
 
-* Ruby version
+- belongs_to :order
+- belongs_to :user
 
-* System dependencies
+# ordersテーブル
+|Colum             |      Type|                       Options|
+|------------------|----------|------------------------------|
+|price             |string    |null:false                    |
+|post_code         |string    |null:false                    |
+|municipalities    |string    |null:false                    |
+|address           |string    |null:false                    |
+|building          |string    |                              |
+|number            |integer   |null:false                    |
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+belongs_to :user
+belongs_to :item
