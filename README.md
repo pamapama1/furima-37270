@@ -26,7 +26,6 @@
 |price             |integer   |null:false                    |
 |user              |references|null:false , foreign_key: true|
 
-- belongs_to :order
 - belongs_to :user
 
 
@@ -34,7 +33,7 @@
 |Colum             |      Type|                       Options|
 |------------------|----------|------------------------------|
 |post_code         |string    |null:false                    |
-|category_id       |integer   |null:false                    |
+|location_id       |integer   |null:false                    |
 |address           |string    |null:false                    |
 |building          |string    |                              |
 |tel_number        |string    |null:false                    |
@@ -48,4 +47,6 @@
 |item              |references|null:false , foreign_key: true|
 |user              |references|null:false , foreign_key: true|
 
+- belongs_to :user
 - belongs_to :item
+- belongs_to :address
