@@ -27,12 +27,14 @@
 |user              |references|null:false , foreign_key: true|
 
 - belongs_to :user
+- has_one :order
 
 
 # addressesテーブル
 |Colum             |      Type|                       Options|
 |------------------|----------|------------------------------|
 |post_code         |string    |null:false                    |
+|municipalities    |string    |null:false                    |
 |location_id       |integer   |null:false                    |
 |address           |string    |null:false                    |
 |building          |string    |                              |
@@ -49,4 +51,4 @@
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one :address
