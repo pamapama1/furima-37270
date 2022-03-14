@@ -25,7 +25,7 @@ class User < ApplicationRecord
          #validates :second_name_kana, presence: true
          validates :birthday, presence: true
 
-        # has_many :items ,foreign_key: :user_id , dependent: :destroy
+         has_many :items ,foreign_key: :user_id , dependent: :destroy
         # has_many :orders ,foreign_key: :user_id, dependent: :destroy
 
 end
