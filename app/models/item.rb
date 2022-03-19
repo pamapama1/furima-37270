@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :location
   belongs_to :status
   belongs_to :delivery_date
+  has_one_attached :image
 
   validates :image,presence: true
   validates :name, presence: true
@@ -18,7 +19,7 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :price, presence: true,inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ },numericality: true
   #validates :user, presence: true
-  has_one_attached :image
+
   belongs_to :user
 
 
