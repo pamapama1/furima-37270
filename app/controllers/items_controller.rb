@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
 
   def create
     # Item.create(item_params)
-    @item = Item.create(item_params)
+    @item = Item.new(item_params)
     if @item.save
       redirect_to controller: :items, action: :index
     else

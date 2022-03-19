@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :item do
     #  item                  {}
-    id                    { '1' }
     name                  { Faker::Name.initials(number: 2) }
     category_id           { '1' }
     status_id             { '1' }
@@ -10,6 +9,6 @@ FactoryBot.define do
     delivery_date_id      { '1' }
     description           { 'テスト' }
     price                 { '5000' }
-    user_id               { '1' }
+    association :user
   end
 end

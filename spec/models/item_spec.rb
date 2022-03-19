@@ -21,13 +21,13 @@ RSpec.describe Item, type: :model do
     it 'descriptonは空では登録できない' do
       @item.description = ''
       @item.valid?
-      expect(@item.errors.full_messages).to include("Description can't be blank", 'User must exist')
+      expect(@item.errors.full_messages).to include("Description can't be blank")
     end
 
     it 'category_idが空だと登録できない' do
       @item.category_id = ''
       @item.valid?
-      expect(@item.errors.full_messages).to include("Category can't be blank", 'User must exist')
+      expect(@item.errors.full_messages).to include("Category can't be blank")
     end
 
     it 'status_idが空だと登録できない' do
