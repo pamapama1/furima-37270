@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :item do
-    #  item                  {}
     name                  { Faker::Name.initials(number: 2) }
     category_id           { '1' }
     status_id             { '1' }
@@ -10,5 +9,10 @@ FactoryBot.define do
     description           { 'テスト' }
     price                 { '5000' }
     association :user
+
+    after(:build) do |message|
+      message.image.attach(io: File.open('public/images/furima-header02.png'), filename: 'furima-header02.png')
+    end
+
   end
 end
