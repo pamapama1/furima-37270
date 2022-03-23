@@ -11,7 +11,6 @@ FactoryBot.define do
     association :user
 
     after(:build) do |item|
-      # @item.image = fixture_file_upload('public/images/furima-header02.png')
       item.image.attach(io: File.open('public/images/furima-header02.png'), filename: 'furima-header02.png')
     end
   end
