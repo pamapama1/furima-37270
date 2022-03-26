@@ -26,5 +26,5 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   has_many :items, foreign_key: :user_id, dependent: :destroy
-  # has_many :orders ,foreign_key: :user_id, dependent: :destroy
+   has_many :orders ,foreign_key: :user_id, dependent: :destroy
 end
