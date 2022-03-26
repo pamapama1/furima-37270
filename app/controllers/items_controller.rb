@@ -36,12 +36,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-   if @item.destroy
-    redirect_to controller: :items, action: :index
-  else
-    render 'items/show'
+    if @item.destroy
+      redirect_to controller: :items, action: :index
+    else
+      render 'items/show'
+    end
    end
-  end
 
   def set_item
     @item = Item.find(params[:id])
