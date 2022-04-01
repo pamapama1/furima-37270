@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   #resources :users, only:[:create]
   resources :items do
       resources :orders, only: [:index,:create]
+
   end
 end
