@@ -7,23 +7,22 @@ RSpec.describe OrderAddress, type: :model do
 
   describe '商品購入機能'do
     context '登録がうまくいくとき'do
-      it "item_id、user_id,post_code、address、tel_numberが存在すれば登録できる"do
+      it "item_id、user_id,post_code、address、tel_number、token、が存在すれば登録できる"do
         expect(@order_address).to be_valid
       end
     end
 
     context '登録がうまくいかないとき' do
-      it 'userが紐づいていないと登録できない'do
-      @order_address.user_id = nil
-      @order_address.valid?
-      expect(@order_address.errors.full_messages).to include("User can't be blank")
-      end
-      it 'itemが紐づいていないと登録できない'do
-      @order_address.item_id = nil
-      @order_address.valid?
-      expect(@order_address.errors.full_messages).to include("Item can't be blank")
-      end
-  
+        it 'userが紐づいていないと登録できない'do
+        @order_address.user_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("User can't be blank")
+        end
+        it 'itemが紐づいていないと登録できない'do
+        @order_address.item_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Item can't be blank")
+        end
         it "post_codeが空だと登録できない"do
           @order_address.post_code = ""
           @order_address.valid?
@@ -48,7 +47,6 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.post_code = "１１１−１１１１" #全角
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
-
         end
         it "addressが空だと登録できない"do
         @order_address.address = ""
@@ -85,9 +83,15 @@ RSpec.describe OrderAddress, type: :model do
           @order_address.valid?
           expect(@order_address.errors.full_messages).to include("Location can't be blank")
         end
+        it "tokenが空では登録できない"do
+        @order_address.token = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Token can't be blank")
+        end
       end
     end
   end
+
 
 
 

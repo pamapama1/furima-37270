@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
-
-before_action :set_item, only: [ :index]
+  before_action :authenticate_user!, except: [:index]
+before_action :set_item, only: [ :index,:create]
+before_action :sold_out, only: [ :index]
 
   def index
     #@item = Item.find(params[:item_id])
@@ -9,11 +10,11 @@ before_action :set_item, only: [ :index]
   
 
   def create
-
     #@user = User.find(current_user.id)
    @order_address = OrderAddress.new(order_params)
   # @address = Address.new(address_params)
   if @order_address.valid?
+   pay_item
     @order_address.save  # バリデーションをクリアした時
     redirect_to root_path
   else
@@ -33,17 +34,29 @@ before_action :set_item, only: [ :index]
     @item = Item.find(params[:item_id])
   end
 
+    def sold_out
+    if @item.order.present?
+     redirect_to root_path
+    end
+  end
+
 
   private
 
- # def item_params
-  #  params.require(:item).permit(:image, :name, :category_id, :status_id, :delivery_charge_id, :location_id, :delivery_date_id,
-   #                              :description, :price).merge(user_id: current_user.id)
-  #end
-
   def order_params
-    params.require(:order_address).permit(:post_code, :municipalities ,:location_id, :address, :building , :tel_number).merge(user_id: current_user.id ,item_id: params[:item_id].to_i)
+    params.require(:order_address).permit(:post_code, :municipalities ,:location_id, :address, :building , :tel_number).merge(user_id: current_user.id ,item_id: params[:item_id].to_i , token: params[:token])
   end
+
+  def pay_item
+  Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp::Charge.create(
+      amount: @item.price,  # 商品の値段
+      card: order_params[:token],    # カードトークン
+      currency: 'jpy'                 # 通貨の種類（日本円）
+    )
+  end
+
+  
 
  
 
