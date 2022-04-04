@@ -41,18 +41,14 @@ class ItemsController < ApplicationController
     else
       render 'items/show'
     end
-   end
+  end
 
   def set_item
     @item = Item.find(params[:id])
   end
 
   def sold_out
-     if @item.order.present?
-      redirect_to root_path
-     end
-
-
+    redirect_to root_path if @item.order.present?
   end
 
   private
