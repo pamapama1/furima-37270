@@ -4,10 +4,10 @@ class OrdersController < ApplicationController
   before_action :sold_out, only: [:index]
 
   def index
-    unless @item.user_id == current_user.id
-    @order_address = OrderAddress.new
-    else
+    if @item.user_id == current_user.id
       redirect_to root_path
+    else
+      @order_address = OrderAddress.new
     end
   end
 
@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
     else
       @item = Item.find(params[:item_id])
-      render :index 
+      render :index
     end
   end
 
@@ -40,10 +40,10 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] 
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: @item.price, 
-      card: order_params[:token], 
+      amount: @item.price,
+      card: order_params[:token],
       currency: 'jpy'
     )
   end
