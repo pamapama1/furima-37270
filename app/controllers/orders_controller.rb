@@ -4,28 +4,23 @@ class OrdersController < ApplicationController
   before_action :sold_out, only: [:index]
 
   def index
-    # @item = Item.find(params[:item_id])
+    unless @item.user_id == current_user.id
     @order_address = OrderAddress.new
+    else
+      redirect_to root_path
+    end
   end
 
   def create
-    # @user = User.find(current_user.id)
     @order_address = OrderAddress.new(order_params)
-    # @address = Address.new(address_params)
     if @order_address.valid?
       pay_item
-      @order_address.save # バリデーションをクリアした時
+      @order_address.save
       redirect_to root_path
     else
       @item = Item.find(params[:item_id])
-      render :index # バリデーションに弾かれた時
-
+      render :index 
     end
-    # if @order.save
-    # redirect_to root_path
-    # else
-    # render :index
-    # end
   end
 
   def set_item
@@ -45,11 +40,11 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] 
     Payjp::Charge.create(
-      amount: @item.price, # 商品の値段
-      card: order_params[:token], # カードトークン
-      currency: 'jpy'                 # 通貨の種類（日本円）
+      amount: @item.price, 
+      card: order_params[:token], 
+      currency: 'jpy'
     )
   end
 end
