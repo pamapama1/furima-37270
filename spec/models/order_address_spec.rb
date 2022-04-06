@@ -70,7 +70,7 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Tel number can't be blank")
       end
-      it 'tel_numberは9桁未満では登録できない' do
+      it 'tel_numberは9桁以下では登録できない' do
         @order_address.tel_number = '12345678'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Tel number is invalid')
