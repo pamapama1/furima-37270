@@ -18,7 +18,7 @@ class Item < ApplicationRecord
   validates :delivery_date_id, presence: true, numericality: { other_than: 0, message: "can't be blank" }
   validates :description, presence: true
   validates :price, presence: true, inclusion: { in: 300..9_999_999 }, numericality: { only_integer: true }
+  # validates :user_id, presence: true
 
   belongs_to :user
-  has_one :order
 end
