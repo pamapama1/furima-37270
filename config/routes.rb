@@ -9,4 +9,8 @@ Rails.application.routes.draw do
       resources :orders, only: [:index,:create]
 
   end
+
+  #resources :users, only:[:create]
+  resources :items, only:[:new , :create ,:index]
+
 end
